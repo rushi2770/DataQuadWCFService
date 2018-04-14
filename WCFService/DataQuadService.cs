@@ -14,23 +14,37 @@ namespace WCFService
         private DataquadEntities db = new DataquadEntities();
         public userDetailsModel GetUserDetailByUserId(int id)
         {
-            userDetailsModel user = new userDetailsModel();
+            //userDetailsModel user = new userDetailsModel();
             try
             {
-                var data = db.tbl_userDetails.Where(x => x.userId == id).FirstOrDefault();
+                var userDetailsFromDb = db.tbl_userDetails.Where(x => x.userId == id).FirstOrDefault();
+                //Creating AutoMapper Map for tbl_userDetails as source and userDetailsModel as destination
+                var config = new AutoMapper.MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<DataAccessLayer.tbl_userDetails, userDetailsModel>();
+                });
 
-                user.userId = data.userId;
-                user.FirstName = data.FirstName;
-                user.LastName = data.LastName;
-                user.password = data.password;
-                user.resetPasswordCode = data.resetPasswordCode;
-                user.dateOfBirth = data.dateOfBirth;
-                user.emailId = data.emailId;
-                user.activationCode = data.activationCode;
-                user.isEmailVerified = data.isEmailVerified;
-                user.tbl_userPersonalDetail = data.tbl_userPersonalDetail;
+                //Initiliazing or create an instance of mapper
+                AutoMapper.IMapper mapper = config.CreateMapper();
 
-                return user;
+                //Automapping userDetailsFromDb to userDetailsModel
+                var userDetailsModel = mapper.Map<userDetailsModel>(userDetailsFromDb);
+                
+                
+                #region copying data from database table to view model by each property
+                //user.userId = data.userId;
+                //user.FirstName = data.FirstName;
+                //user.LastName = data.LastName;
+                //user.password = data.password;
+                //user.resetPasswordCode = data.resetPasswordCode;
+                //user.dateOfBirth = data.dateOfBirth;
+                //user.emailId = data.emailId;
+                //user.activationCode = data.activationCode;
+                //user.isEmailVerified = data.isEmailVerified;
+                //user.tbl_userPersonalDetail = data.tbl_userPersonalDetail; 
+                #endregion
+
+                return userDetailsModel;
             }
             catch(Exception ex)
             {
