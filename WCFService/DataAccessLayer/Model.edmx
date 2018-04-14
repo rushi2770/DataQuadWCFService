@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DataquadModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_race">
+          <Key>
+            <PropertyRef Name="raceId" />
+          </Key>
+          <Property Name="raceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="raceName" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tbl_userDetails">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="emailId" Type="varchar" MaxLength="254" Nullable="false" />
+          <Property Name="dateOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="isEmailVerified" Type="bit" Nullable="false" />
+          <Property Name="activationCode" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="resetPasswordCode" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbl_userFilesCollection">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="FileData" Type="varbinary(max)" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="FileSize" Type="int" />
+          <Property Name="FileContentType" Type="varchar(max)" />
+          <Property Name="FileExtension" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_userLoginDetails">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_userPersonalDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="100" />
+          <Property Name="Ethnicity" Type="varchar" MaxLength="150" />
+          <Property Name="Race" Type="varchar" MaxLength="100" />
+          <Property Name="TechnologyIntersted" Type="varchar" MaxLength="250" />
+          <Property Name="userId" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_userProfileImages">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ImageData" Type="varbinary(max)" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="ImageSize" Type="int" />
+        </EntityType>
+        <Association Name="FK_tbl_userFilesCollection_tbl_userLoginDetails">
+          <End Role="tbl_userLoginDetails" Type="Self.tbl_userLoginDetails" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_userFilesCollection" Type="Self.tbl_userFilesCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_userLoginDetails">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tbl_userFilesCollection">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_userPersonalDetail_tbl_userDetails">
+          <End Role="tbl_userDetails" Type="Self.tbl_userDetails" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_userPersonalDetail" Type="Self.tbl_userPersonalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_userDetails">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tbl_userPersonalDetail">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_userProfileImages_tbl_userLoginDetails">
+          <End Role="tbl_userLoginDetails" Type="Self.tbl_userLoginDetails" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_userProfileImages" Type="Self.tbl_userProfileImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_userLoginDetails">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tbl_userProfileImages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataquadModelStoreContainer">
+          <EntitySet Name="tbl_race" EntityType="Self.tbl_race" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_userDetails" EntityType="Self.tbl_userDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_userFilesCollection" EntityType="Self.tbl_userFilesCollection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_userLoginDetails" EntityType="Self.tbl_userLoginDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_userPersonalDetail" EntityType="Self.tbl_userPersonalDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_userProfileImages" EntityType="Self.tbl_userProfileImages" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_userFilesCollection_tbl_userLoginDetails" Association="Self.FK_tbl_userFilesCollection_tbl_userLoginDetails">
+            <End Role="tbl_userLoginDetails" EntitySet="tbl_userLoginDetails" />
+            <End Role="tbl_userFilesCollection" EntitySet="tbl_userFilesCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_userPersonalDetail_tbl_userDetails" Association="Self.FK_tbl_userPersonalDetail_tbl_userDetails">
+            <End Role="tbl_userDetails" EntitySet="tbl_userDetails" />
+            <End Role="tbl_userPersonalDetail" EntitySet="tbl_userPersonalDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_userProfileImages_tbl_userLoginDetails" Association="Self.FK_tbl_userProfileImages_tbl_userLoginDetails">
+            <End Role="tbl_userLoginDetails" EntitySet="tbl_userLoginDetails" />
+            <End Role="tbl_userProfileImages" EntitySet="tbl_userProfileImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataquadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_race">
+          <Key>
+            <PropertyRef Name="raceId" />
+          </Key>
+          <Property Name="raceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="raceName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_userDetails">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="emailId" Type="String" MaxLength="254" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isEmailVerified" Type="Boolean" Nullable="false" />
+          <Property Name="activationCode" Type="Guid" Nullable="false" />
+          <Property Name="resetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_userPersonalDetail" Relationship="Self.FK_tbl_userPersonalDetail_tbl_userDetails" FromRole="tbl_userDetails" ToRole="tbl_userPersonalDetail" />
+        </EntityType>
+        <EntityType Name="tbl_userFilesCollection">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="FileData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FileSize" Type="Int32" />
+          <Property Name="FileContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FileExtension" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_userLoginDetails" Relationship="Self.FK_tbl_userFilesCollection_tbl_userLoginDetails" FromRole="tbl_userFilesCollection" ToRole="tbl_userLoginDetails" />
+        </EntityType>
+        <EntityType Name="tbl_userLoginDetails">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_userFilesCollection" Relationship="Self.FK_tbl_userFilesCollection_tbl_userLoginDetails" FromRole="tbl_userLoginDetails" ToRole="tbl_userFilesCollection" />
+          <NavigationProperty Name="tbl_userProfileImages" Relationship="Self.FK_tbl_userProfileImages_tbl_userLoginDetails" FromRole="tbl_userLoginDetails" ToRole="tbl_userProfileImages" />
+        </EntityType>
+        <EntityType Name="tbl_userPersonalDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Ethnicity" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Race" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TechnologyIntersted" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="userId" Type="Int32" />
+          <NavigationProperty Name="tbl_userDetails" Relationship="Self.FK_tbl_userPersonalDetail_tbl_userDetails" FromRole="tbl_userPersonalDetail" ToRole="tbl_userDetails" />
+        </EntityType>
+        <EntityType Name="tbl_userProfileImages">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ImageSize" Type="Int32" />
+          <NavigationProperty Name="tbl_userLoginDetails" Relationship="Self.FK_tbl_userProfileImages_tbl_userLoginDetails" FromRole="tbl_userProfileImages" ToRole="tbl_userLoginDetails" />
+        </EntityType>
+        <Association Name="FK_tbl_userPersonalDetail_tbl_userDetails">
+          <End Role="tbl_userDetails" Type="Self.tbl_userDetails" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_userPersonalDetail" Type="Self.tbl_userPersonalDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_userDetails">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tbl_userPersonalDetail">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_userFilesCollection_tbl_userLoginDetails">
+          <End Role="tbl_userLoginDetails" Type="Self.tbl_userLoginDetails" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_userFilesCollection" Type="Self.tbl_userFilesCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_userLoginDetails">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tbl_userFilesCollection">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_userProfileImages_tbl_userLoginDetails">
+          <End Role="tbl_userLoginDetails" Type="Self.tbl_userLoginDetails" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tbl_userProfileImages" Type="Self.tbl_userProfileImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_userLoginDetails">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="tbl_userProfileImages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataquadEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_race" EntityType="Self.tbl_race" />
+          <EntitySet Name="tbl_userDetails" EntityType="Self.tbl_userDetails" />
+          <EntitySet Name="tbl_userFilesCollection" EntityType="Self.tbl_userFilesCollection" />
+          <EntitySet Name="tbl_userLoginDetails" EntityType="Self.tbl_userLoginDetails" />
+          <EntitySet Name="tbl_userPersonalDetail" EntityType="Self.tbl_userPersonalDetail" />
+          <EntitySet Name="tbl_userProfileImages" EntityType="Self.tbl_userProfileImages" />
+          <AssociationSet Name="FK_tbl_userPersonalDetail_tbl_userDetails" Association="Self.FK_tbl_userPersonalDetail_tbl_userDetails">
+            <End Role="tbl_userDetails" EntitySet="tbl_userDetails" />
+            <End Role="tbl_userPersonalDetail" EntitySet="tbl_userPersonalDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_userFilesCollection_tbl_userLoginDetails" Association="Self.FK_tbl_userFilesCollection_tbl_userLoginDetails">
+            <End Role="tbl_userLoginDetails" EntitySet="tbl_userLoginDetails" />
+            <End Role="tbl_userFilesCollection" EntitySet="tbl_userFilesCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_userProfileImages_tbl_userLoginDetails" Association="Self.FK_tbl_userProfileImages_tbl_userLoginDetails">
+            <End Role="tbl_userLoginDetails" EntitySet="tbl_userLoginDetails" />
+            <End Role="tbl_userProfileImages" EntitySet="tbl_userProfileImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataquadModelStoreContainer" CdmEntityContainer="DataquadEntities">
+          <EntitySetMapping Name="tbl_race">
+            <EntityTypeMapping TypeName="DataquadModel.tbl_race">
+              <MappingFragment StoreEntitySet="tbl_race">
+                <ScalarProperty Name="raceId" ColumnName="raceId" />
+                <ScalarProperty Name="raceName" ColumnName="raceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_userDetails">
+            <EntityTypeMapping TypeName="DataquadModel.tbl_userDetails">
+              <MappingFragment StoreEntitySet="tbl_userDetails">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="emailId" ColumnName="emailId" />
+                <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="isEmailVerified" ColumnName="isEmailVerified" />
+                <ScalarProperty Name="activationCode" ColumnName="activationCode" />
+                <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_userFilesCollection">
+            <EntityTypeMapping TypeName="DataquadModel.tbl_userFilesCollection">
+              <MappingFragment StoreEntitySet="tbl_userFilesCollection">
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FileData" ColumnName="FileData" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="FileContentType" ColumnName="FileContentType" />
+                <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_userLoginDetails">
+            <EntityTypeMapping TypeName="DataquadModel.tbl_userLoginDetails">
+              <MappingFragment StoreEntitySet="tbl_userLoginDetails">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_userPersonalDetail">
+            <EntityTypeMapping TypeName="DataquadModel.tbl_userPersonalDetail">
+              <MappingFragment StoreEntitySet="tbl_userPersonalDetail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Ethnicity" ColumnName="Ethnicity" />
+                <ScalarProperty Name="Race" ColumnName="Race" />
+                <ScalarProperty Name="TechnologyIntersted" ColumnName="TechnologyIntersted" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_userProfileImages">
+            <EntityTypeMapping TypeName="DataquadModel.tbl_userProfileImages">
+              <MappingFragment StoreEntitySet="tbl_userProfileImages">
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ImageSize" ColumnName="ImageSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

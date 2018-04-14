@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1bd385164a3a49db920f77c7728d97c8" Name="Diagram1">
+        <EntityTypeShape EntityType="DataquadModel.tbl_race" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataquadModel.tbl_userDetails" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataquadModel.tbl_userFilesCollection" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataquadModel.tbl_userLoginDetails" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataquadModel.tbl_userPersonalDetail" Width="1.5" PointX="8" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataquadModel.tbl_userProfileImages" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="DataquadModel.FK_tbl_userPersonalDetail_tbl_userDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="DataquadModel.FK_tbl_userFilesCollection_tbl_userLoginDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="DataquadModel.FK_tbl_userProfileImages_tbl_userLoginDetails" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
