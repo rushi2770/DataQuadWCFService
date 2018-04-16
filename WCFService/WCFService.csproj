@@ -49,6 +49,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crypto.cs" />
     <Compile Include="DataAccessLayer\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -92,6 +94,7 @@
     </Compile>
     <Compile Include="DataQuadService.cs" />
     <Compile Include="IDataQuadService.cs" />
+    <Compile Include="Models\userProfileImageModel.cs" />
     <Compile Include="Profiles\ApplicationProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="userDetailsModel.cs" />

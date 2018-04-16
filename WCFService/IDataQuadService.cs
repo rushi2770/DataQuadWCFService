@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using System.Runtime.Serialization; 
 using System.ServiceModel;
 using System.Text;
 using WCFService.DataAccessLayer;
@@ -17,8 +17,35 @@ namespace WCFService
         userDetailsModel GetUserDetailByUserId(int id);
         [OperationContract]
         string sample();
+        [OperationContract]
+        bool RegisterUser(userDetailsModel user);
+
+        [OperationContract]
+        tbl_userProfileImages GetProfileImageByUserId(int id);
+
+        [OperationContract]
+        void SaveProfileImage(tbl_userProfileImages image);
+
+        [OperationContract]
+        tbl_userPersonalDetail GetPersonalDetailByUserId(int id);
+
+        [OperationContract]
+        void SavePersonalDetail(tbl_userPersonalDetail userPersonalDetail);
+
+        [OperationContract]
+        IEnumerable<tbl_race> GetAllRaces();
+
+        [OperationContract]
+        IEnumerable<tbl_userFilesCollection> GetAllFilesByUserId(int id);
+
+        [OperationContract]
+        tbl_userFilesCollection GetFileByFileId(int id);
+
+        [OperationContract]
+        void SaveFile(tbl_userFilesCollection file);
+
+        [OperationContract]
+        void DeleteFile(int id);
 
     }
-
-
 }
