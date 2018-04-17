@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="DataQuadService.cs" />
     <Compile Include="IDataQuadService.cs" />
+    <Compile Include="Models\tbl_userProfileImages.cs" />
     <Compile Include="Models\userProfileImageModel.cs" />
     <Compile Include="Profiles\ApplicationProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

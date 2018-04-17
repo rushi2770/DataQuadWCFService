@@ -41,9 +41,22 @@ namespace WCFService
             return db.tbl_userPersonalDetail.FirstOrDefault(x => x.userId == id);
         }
 
-        public tbl_userProfileImages GetProfileImageByUserId(int? id)
+        public Models.userProfileImageModel GetProfileImageByUserId(int? id)
         {
-            return db.tbl_userProfileImages.FirstOrDefault(x => x.UserId == id);
+            //Models.userProfileImageModel userProfileImage = new Models.userProfileImageModel();
+            var userProfileImageFromDb =  db.tbl_userProfileImages.FirstOrDefault(x => x.UserId == id);
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<DataAccessLayer.tbl_userProfileImages, Models.userProfileImageModel>();
+            });
+
+            //Initiliazing or create an instance of mapper
+            AutoMapper.IMapper mapper = config.CreateMapper();
+
+            //Automapping userDetailsFromDb to userDetailsModel
+            var userProfileImage = mapper.Map<Models.userProfileImageModel>(userProfileImageFromDb);
+
+            return userProfileImage;
         }
 
         public userDetailsModel GetUserDetailByUserId(int id)
@@ -61,8 +74,7 @@ namespace WCFService
                 AutoMapper.IMapper mapper = config.CreateMapper();
 
                 //Automapping userDetailsFromDb to userDetailsModel
-                var userDetailsModel = mapper.Map<userDetailsModel>(userDetailsFromDb);
-                
+                var userDetailsModel = mapper.Map<tbl_userDetails,userDetailsModel>(userDetailsFromDb);
                 
                 #region copying data from database table to view model by each property
                 //user.userId = data.userId;
@@ -85,6 +97,8 @@ namespace WCFService
         {
             var hashedPassword = Crypto.Hash(user.password);
             user.password = hashedPassword;
+            
+            #region AutoMapper
             //Creating AutoMapper Map for tbl_userDetails as source and userDetailsModel as destination
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -95,7 +109,9 @@ namespace WCFService
             AutoMapper.IMapper mapper = config.CreateMapper();
 
             //Automapping userDetailsFromDb to userDetailsModel
-            var tbl_user = mapper.Map<tbl_userDetails>(user);
+            var tbl_user = mapper.Map<tbl_userDetails>(user); 
+            #endregion
+
             if(tbl_user != null)
             {
                 db.tbl_userDetails.Add(tbl_user);

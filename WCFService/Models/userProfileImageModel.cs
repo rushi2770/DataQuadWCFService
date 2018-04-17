@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
-namespace WCFService.DataAccessLayer
+namespace WCFService.Models
 {
-    public partial class tbl_userProfileImages
+    public class userProfileImageModel
     {
-        //This property is used to send the file from view to controller and then 
-        //set the properties to the table respective properties
-        public HttpPostedFileBase File { get; set; }
+        public int ImageId { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public byte[] ImageData { get; set; }
+        public string FileName { get; set; }
+        public Nullable<int> ImageSize { get; set; }        
     }
 }

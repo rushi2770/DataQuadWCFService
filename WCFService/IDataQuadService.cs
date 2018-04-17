@@ -21,7 +21,7 @@ namespace WCFService
         bool RegisterUser(userDetailsModel user);
 
         [OperationContract]
-        tbl_userProfileImages GetProfileImageByUserId(int id);
+        Models.userProfileImageModel GetProfileImageByUserId(int? id);
 
         [OperationContract]
         void SaveProfileImage(tbl_userProfileImages image);
