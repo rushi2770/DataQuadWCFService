@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1bd385164a3a49db920f77c7728d97c8" Name="Diagram1">
+      <Diagram DiagramId="55472f2f4bcf40609dbaf46a60019fce" Name="Diagram1">
         <EntityTypeShape EntityType="DataquadModel.tbl_race" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataquadModel.tbl_userDetails" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DataquadModel.tbl_userFilesCollection" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
