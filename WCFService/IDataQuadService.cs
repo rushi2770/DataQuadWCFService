@@ -27,7 +27,7 @@ namespace WCFService
         void SaveProfileImage(tbl_userProfileImages image);
 
         [OperationContract]
-        tbl_userPersonalDetail GetPersonalDetailByUserId(int id);
+        Models.userPersonalDetailsModel GetPersonalDetailByUserId(int id);
 
         [OperationContract]
         void SavePersonalDetail(tbl_userPersonalDetail userPersonalDetail);
@@ -39,7 +39,7 @@ namespace WCFService
         IEnumerable<tbl_userFilesCollection> GetAllFilesByUserId(int id);
 
         [OperationContract]
-        tbl_userFilesCollection GetFileByFileId(int id);
+        Models.userFilesCollectonModel GetFileByFileId(int id);
 
         [OperationContract]
         void SaveFile(tbl_userFilesCollection file);

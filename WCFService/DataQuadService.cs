@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 
 using WCFService.DataAccessLayer;
+using WCFService.Models;
 
 namespace WCFService
 {
@@ -31,15 +32,51 @@ namespace WCFService
             return db.tbl_race.ToList();
         }
 
-        public tbl_userFilesCollection GetFileByFileId(int id)
+        public Models.userFilesCollectonModel GetFileByFileId(int id)
         {
-            return db.tbl_userFilesCollection.FirstOrDefault(x => x.FileId == id);
+            var fileFromDb = db.tbl_userFilesCollection.FirstOrDefault(x => x.FileId == id);
+            
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<tbl_userFilesCollection, Models.userFilesCollectonModel>();
+            });
+
+            //Initiliazing or create an instance of mapper
+            AutoMapper.IMapper mapper = config.CreateMapper();
+
+            //Automapping userDetailsFromDb to userDetailsModel
+            var requestedFile = mapper.Map<Models.userFilesCollectonModel>(fileFromDb);
+
+            return requestedFile;
+           
         }
 
-        public tbl_userPersonalDetail GetPersonalDetailByUserId(int id)
+        public userPersonalDetailsModel GetPersonalDetailByUserId(int id)
         {
-            return db.tbl_userPersonalDetail.FirstOrDefault(x => x.userId == id);
+            throw new NotImplementedException();
         }
+
+        //public tbl_userPersonalDetail GetPersonalDetailByUserId(int id)
+        //{
+        //    return db.tbl_userPersonalDetail.FirstOrDefault(x => x.userId == id);
+        //}
+
+        //public Models.userPersonalDetailsModel GetPersonalDetailByUserId(int id)
+        //{
+        //    var userPersonalDetailsFromDb = db.tbl_userPersonalDetail.Where(x => x.userId == id).FirstOrDefault();
+        //    //Creating AutoMapper Map for tbl_userDetails as source and userDetailsModel as destination
+        //    var config = new AutoMapper.MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<DataAccessLayer.tbl_userPersonalDetail, Models.userPersonalDetailsModel>();
+        //    });
+
+        //    //Initiliazing or create an instance of mapper
+        //    AutoMapper.IMapper mapper = config.CreateMapper();
+
+        //    //Automapping userDetailsFromDb to userDetailsModel
+        //    var userDetailsModel = mapper.Map<tbl_userPersonalDetail, userDetailsModel>(userPersonalDetailsFromDb);
+        //    return userDetailsModel;
+        //}
 
         public Models.userProfileImageModel GetProfileImageByUserId(int? id)
         {
@@ -162,28 +199,6 @@ namespace WCFService
                 db.SaveChanges();
             }
         }
-
-
-
-        //[DataContract]
-        //public class tbl_userDetails
-        //{
-
-        //   [DataMember]
-        //    public int userId { get; set; }
-        //    [DataMember]
-        //    public string FirstName { get; set; }
-        //    [DataMember]
-        //    public string LastName { get; set; }
-        //    [DataMember]
-        //    public string emailId { get; set; }
-        //    public System.DateTime dateOfBirth { get; set; }
-        //    public string password { get; set; }
-        //    public bool isEmailVerified { get; set; }
-        //    public System.Guid activationCode { get; set; }
-        //    public string resetPasswordCode { get; set; }
-
-
-        //}
+        
     }
 }

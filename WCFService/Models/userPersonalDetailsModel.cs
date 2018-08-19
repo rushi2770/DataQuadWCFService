@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using WCFService.DataAccessLayer;
 
-namespace WCFService
+namespace WCFService.Models
 {
-    public  class userPersonalDetailsModel
+    public class userPersonalDetailsModel
     {
         public int id { get; set; }
         public string Gender { get; set; }
