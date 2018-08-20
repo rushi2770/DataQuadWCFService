@@ -15,4 +15,4 @@ About, Contact functionalities.
 
 In this project I've implemented BasicHttpBinding and also created various Data Members to modify the Database using these methoods.
 
-Environment: ASP .Net MVC, Entity Framework, HTML5, CSS3, Javascript, jQuery, SQL Server, WCF.
+Environment: WCF, Entity Framework, C#, Visual Studio 2015.
