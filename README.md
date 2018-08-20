@@ -3,9 +3,9 @@ WCF Services for the project DataQuad which consists of login details and user p
 
 /*
 
-Project: E-Commerce Website Sample
-Author: Rushikesh Chikka
-All rights reserved. 
+* Project: WCF Service
+* Author: Rushikesh Chikka
+* All rights reserved. 
 
 */
 
